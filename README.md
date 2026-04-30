@@ -54,8 +54,12 @@
 <summary><b>Click to expand/collapse feature list</b></summary>
 
 ✅ **Real-time File Monitoring** — Automatically organizes files as they're created  
+✅ **Startup Cleanup** — Sorts files already present in watched folders when Watcher starts  
 ✅ **Smart Categorization** — Sorts by extension into configurable categories  
+✅ **Download-Safe Handling** — Waits for new files to finish downloading or renaming before moving them  
 ✅ **GUI & CLI Support** — Use the modern tkinter interface or command-line  
+✅ **System Tray Background Mode** — Run silently in background with auto-start  
+✅ **Windows Startup Integration** — Built-in startup manager for auto-launch  
 ✅ **Multi-folder Management** — Watch multiple directories simultaneously  
 ✅ **Per-folder Settings** — Customize behavior for each watched location  
 ✅ **Safe & Non-recursive** — Only watches top-level; never touches subfolders  
@@ -78,7 +82,13 @@
 3. **Add folders** to watch and click "Start Watchers"
 4. **Done!** Your files will be automatically organized
 
-**Optional:** Set up auto-start on login (see [Advanced Setup](#-advanced-setup))
+**💡 Pro Tip:** Run in background mode for set-and-forget operation:
+```cmd
+Watcher-v1.00001a-bino.exe --background
+```
+App runs silently in system tray with watchers auto-started.
+
+**Optional:** Set up auto-start on login using the built-in "Startup Options" menu
 
 ---
 
@@ -138,6 +148,8 @@ The GUI provides:
 - 📊 **Status Bar** — Real-time running/idle state indicator
 
 </details>
+
+Watcher sorts any files that are already in a watched folder when monitoring starts. For new files, it waits 30 seconds before moving them, and it also skips temporary download names like `.tmp`, `.part`, `.crdownload`, and `.download` until the final file appears.
 
 ### CLI Mode
 
@@ -457,7 +469,33 @@ update-desktop-database ~/.local/share/applications/
 ### 🪟 Windows: Auto-start on Login
 
 <details open>
-<summary><b>Option 1: Task Scheduler (Python Script)</b></summary>
+<summary><b>✨ Option 1: Built-in Startup Manager (Recommended)</b></summary>
+
+**Easiest method using the built-in GUI:**
+
+1. Launch **Watcher** (double-click the exe)
+2. Click **"Startup Options"** menu button
+3. Select **"Add to Startup"**
+4. Done! The app will now start automatically on Windows login
+
+**What it does:**
+- ✅ Adds Watcher to Windows startup registry
+- ✅ Starts minimized to system tray on login
+- ✅ Auto-starts watchers for configured folders
+- ✅ Runs completely in background (no console window)
+
+**To remove from startup:**
+- Click **"Startup Options"** → **"Remove from Startup"**
+
+**Manual command (for exe):**
+```cmd
+Watcher-v1.00001a-bino.exe --background
+```
+
+</details>
+
+<details>
+<summary><b>Option 2: Task Scheduler (Python Script)</b></summary>
 
 1. Open **Task Scheduler** (press `Win + R`, type `taskschd.msc`)
 2. Click **"Create Task..."** in the right panel
@@ -480,7 +518,7 @@ update-desktop-database ~/.local/share/applications/
 </details>
 
 <details>
-<summary><b>Option 2: Startup Folder (Executable)</b></summary>
+<summary><b>Option 3: Startup Folder (Executable)</b></summary>
 
 Best for packaged `.exe` files:
 
@@ -502,7 +540,7 @@ $Shortcut.Save()
 </details>
 
 <details>
-<summary><b>Option 3: Registry Run Key</b></summary>
+<summary><b>Option 4: Registry Run Key (Advanced)</b></summary>
 
 Add to Windows Registry for auto-start:
 
