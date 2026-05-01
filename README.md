@@ -31,7 +31,7 @@
     - [Steps](#steps)
   - [💻 Usage](#-usage)
     - [GUI Mode](#gui-mode)
-    - [CLI Mode](#cli-mode)
+    - [CLI Status](#cli-status)
   - [⚙️ Configuration](#️-configuration)
     - [File Organization Rules](#file-organization-rules)
     - [Custom Icon Setup](#custom-icon-setup)
@@ -57,9 +57,8 @@
 ✅ **Startup Cleanup** — Sorts files already present in watched folders when Watcher starts  
 ✅ **Smart Categorization** — Sorts by extension into configurable categories  
 ✅ **Download-Safe Handling** — Waits for new files to finish downloading or renaming before moving them  
-✅ **GUI & CLI Support** — Use the modern tkinter interface or command-line  
-✅ **System Tray Background Mode** — Run silently in background with auto-start  
-✅ **Windows Startup Integration** — Built-in startup manager for auto-launch  
+✅ **Modern PyQt6 Interface** — Manage folders, rules, and logs in a desktop UI  
+✅ **GUI-First Workflow** — Start/stop watchers and test files directly from the app  
 ✅ **Multi-folder Management** — Watch multiple directories simultaneously  
 ✅ **Per-folder Settings** — Customize behavior for each watched location  
 ✅ **Safe & Non-recursive** — Only watches top-level; never touches subfolders  
@@ -81,14 +80,6 @@
 2. **Double-click** to run the application
 3. **Add folders** to watch and click "Start Watchers"
 4. **Done!** Your files will be automatically organized
-
-**💡 Pro Tip:** Run in background mode for set-and-forget operation:
-```cmd
-Watcher-v1.00001a-bino.exe --background
-```
-App runs silently in system tray with watchers auto-started.
-
-**Optional:** Set up auto-start on login using the built-in "Startup Options" menu
 
 ---
 
@@ -120,6 +111,8 @@ pip install -r requirements.txt
 <summary>What gets installed?</summary>
 
 - `watchdog>=4.0.0` — File system monitoring library
+- `PyQt6>=6.7.0` — Desktop GUI framework
+- `Pillow>=10.0.0` — Image helper used by icon tooling scripts
 
 </details>
 
@@ -149,34 +142,12 @@ The GUI provides:
 
 </details>
 
-Watcher sorts any files that are already in a watched folder when monitoring starts. For new files, it waits 30 seconds before moving them, and it also skips temporary download names like `.tmp`, `.part`, `.crdownload`, and `.download` until the final file appears.
+Watcher sorts any files that are already in a watched folder when monitoring starts. New files are organized in real time as they are created.
 
-### CLI Mode
+### CLI Status
 
-**Run in command-line mode with options:**
-
-```bash
-python gui.py --path C:/Downloads --path D:/Inbox --unknown Other --quiet
-```
-
-<details open>
-<summary><b>Available CLI Options</b></summary>
-
-| Option | Description | Example |
-|--------|-------------|---------|
-| `--path` | Folder to watch (repeat for multiple) | `--path C:/Downloads` |
-| `--unknown` | Target folder for unrecognized extensions | `--unknown Miscellaneous` |
-| `--quiet` | Reduce logging to errors only | `--quiet` |
-| `--rules` | JSON mapping of categories to extensions | `--rules '{"Images":["jpg","png"]}'` |
-| `--create-test` | Create sample files for testing | `--create-test` |
-
-</details>
-
-**Example: Watch multiple folders with custom rules**
-
-```bash
-python gui.py --path ~/Downloads --path ~/Desktop --unknown Other --rules '{"Photos":["jpg","png","heic"],"Spreadsheets":["xlsx","csv"]}'
-```
+The current version is GUI-first and does not expose the legacy CLI flags in `gui.py`.
+Use the GUI to configure folders, rules, and watcher controls.
 
 ---
 
@@ -471,26 +442,8 @@ update-desktop-database ~/.local/share/applications/
 <details open>
 <summary><b>✨ Option 1: Built-in Startup Manager (Recommended)</b></summary>
 
-**Easiest method using the built-in GUI:**
-
-1. Launch **Watcher** (double-click the exe)
-2. Click **"Startup Options"** menu button
-3. Select **"Add to Startup"**
-4. Done! The app will now start automatically on Windows login
-
-**What it does:**
-- ✅ Adds Watcher to Windows startup registry
-- ✅ Starts minimized to system tray on login
-- ✅ Auto-starts watchers for configured folders
-- ✅ Runs completely in background (no console window)
-
-**To remove from startup:**
-- Click **"Startup Options"** → **"Remove from Startup"**
-
-**Manual command (for exe):**
-```cmd
-Watcher-v1.00001a-bino.exe --background
-```
+Current `gui.py` does not include the old built-in startup/background manager.
+Use **Option 2 (Task Scheduler)** below for Windows login automation.
 
 </details>
 
@@ -814,7 +767,7 @@ Yes, but performance may vary depending on your network connection and the file 
 <details>
 <summary><b>Q: How do I stop the watcher?</b></summary>
 
-In GUI mode, click the "Stop" button. In CLI mode, press `Ctrl+C` in the terminal.
+Click the "Stop Watchers" button in the GUI.
 
 </details>
 

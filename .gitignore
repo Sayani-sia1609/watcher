@@ -17,6 +17,10 @@ build/
 dist/
 *.spec
 version_info.txt
+*.exe
+*.dll
+*.pyd
+*.manifest
 
 # auto-py-to-exe
 output/
@@ -24,6 +28,7 @@ output/
 # Icon files (generated from base64)
 watcher-icon.png
 watcher-icon.ico
+watcher-icon-fixed.ico
 watcher-icon.b64
 extract_icon.py
 
@@ -42,9 +47,36 @@ desktop.ini
 # Logs
 *.log
 
+# Python/tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local backups and temp outputs
+*.bak
+*.tmp
+
+# Local generated folders/files
+Code/
+
 # Temporary files
 tempCodeRunnerFile.py
 temp_*.py
 
 # User settings (optional - remove this line if you want to track settings)
-# settings.json
+settings.json
+BUILD_BACKGROUND.md
+COMPLETION_CHECKLIST.md
+generate_gui.py
+GUI_REMAKE_SUMMARY.md
+gui.py.bak
+KINTER_EXAMPLES.py
+KINTER_GUIDE.md
+kinter.py
+MIGRATION_SUMMARY.md
+PROJECT_SUMMARY.txt
+PROJECT_COMPLETION.md
+pyqt6_shell.py
+QUICK_REFERENCE.md
+settings.json
+test_kinter_features.py
